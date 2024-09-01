@@ -87,8 +87,27 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
     setMessage("");
   };
 
-  const handleNewChat = () => {
-   setChats([])
+  const handleNewChat = async () => {
+    console.log("called outside")
+    try {
+      console.log("called inside")
+      const response = await fetch('http://127.0.0.1:5000/delete-uploads', {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log("Uploads deleted successfully.");
+        setChats([]);
+       
+      } else {
+        console.error('Error deleting uploads:', response.statusText);
+       
+      }
+    } catch (error) {
+      console.error('Error deleting uploads:', error);
+      
+    }
+  
   };
   
 
