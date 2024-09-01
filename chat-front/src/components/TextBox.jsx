@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const TextBox = ({ chats, setChats }) => {
   const [message, setMessage] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const textBoxContainerStyle = {
     position: 'fixed',
@@ -49,11 +50,36 @@ const TextBox = ({ chats, setChats }) => {
   };
 
   const handleSend = () => {
+    setChats((prevChats) => [message, ...prevChats]);
+    setMessage('');
+  };
 
-      setChats((prevChats) => [message, ...prevChats]); 
+  const handleNewChat = () => {
+    // Your new chat logic here
+  };
 
-      setMessage('');
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const formData = new FormData(); // Correct capitalization
+      formData.append('file', file);
 
+      try {
+        const response = await fetch('http://localhost:5000/upload-file', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        console.log(result.message);
+        
+
+      } catch (error) {
+        console.log('Error uploading file:', error);
+       
+      }
+    }
   };
 
   return (
@@ -65,9 +91,16 @@ const TextBox = ({ chats, setChats }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <label htmlFor="pdfUpload" style={fileLabelStyle}>Upload PDF</label>
-      <input type="file" id="pdfUpload" style={fileInputStyle} accept="application/pdf" />
       <button style={buttonStyle} onClick={handleSend}>Send</button>
+      <label htmlFor="pdfUpload" style={fileLabelStyle}>Upload PDF</label>
+      <input
+        type="file"
+        id="pdfUpload"
+        style={fileInputStyle}
+        accept="application/pdf"
+        onChange={handleFileChange}
+      />
+      <button style={buttonStyle} onClick={handleNewChat}>New Chat</button>
     </div>
   );
 };
