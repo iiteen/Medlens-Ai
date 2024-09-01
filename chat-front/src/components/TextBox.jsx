@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
   const [message, setMessage] = useState('');
+  const [count, setCount] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const textBoxContainerStyle = {
@@ -71,7 +72,7 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
   };
   const handleSend = () => {
     setChats((prevChats) => [message, ...prevChats]);
-    setSidebarChats((prevChats) => [message, ...prevChats]);
+    
     sendTextToBackend(message)
    
 
@@ -79,13 +80,14 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
   };
 
   const handleNewChat = () => {
-    // Your new chat logic here
+   setChats([])
   };
   
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+     
       setSelectedFile(file);
       const formData = new FormData(); 
       formData.append('file', file);
@@ -98,6 +100,11 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
 
         const result = await response.json();
         console.log(result.message);
+       
+        const fileName = file.name;
+        console.log(fileName)
+        setSidebarChats((prevChats) => [fileName, ...prevChats]);
+        setCount(count+1)
         
 
       } catch (error) {
