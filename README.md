@@ -45,7 +45,7 @@ This project is a chatbot designed to answer user queries by extracting and proc
     ollama run llama3.1
     ```
 
-5. **If you are using Windows and encounter an error with pytesseract, run the following command in the Python terminal:**
+5. **If you are using Windows then run the following command in the Python terminal otherwise you will get error from tesseract:**
 
     **Note:** Replace the path to your `tesseract.exe` and `tessdata`
     ```python
