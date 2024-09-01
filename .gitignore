@@ -1,2 +1,4 @@
 Samples/
 images/
+data/
+__pycache__/
