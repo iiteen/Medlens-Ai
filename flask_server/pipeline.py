@@ -6,6 +6,11 @@ from llm import LLM
 chroma_db = None
 
 
+def delete():
+    global chroma_db
+    chroma_db = None
+
+
 def pdf(pdf_path):
     global chroma_db
     text = extract_text_from_pdf(pdf_path)
