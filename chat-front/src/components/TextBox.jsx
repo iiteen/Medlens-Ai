@@ -51,6 +51,8 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
     textAlign: 'center',
   };
   const sendTextToBackend = async (text) => {
+    const tempMessage = "Please wait your query is being processed...."
+    setChats((prevChats)=>[tempMessage,...prevChats])
     try {
       console.log(text)
       const response = await fetch(' http://127.0.0.1:5000/get-query', {
@@ -62,8 +64,14 @@ const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
       });
 
       const result = await response.json();
-      console.log(result.message);
+        console.log(result.message);
      
+       setChats((prevChats) => {
+            
+            const updatedChats = prevChats.filter(chat => chat !== tempMessage);
+            return [result.message, ...updatedChats];
+        });
+    
 
     } catch (error) {
       console.error('Error sending text:', error);

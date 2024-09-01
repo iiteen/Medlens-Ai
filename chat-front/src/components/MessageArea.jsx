@@ -54,7 +54,7 @@ const MessageArea = ({ chats }) => {
       {chats.slice().reverse().map((chat, index) => (
         <div
           key={`chat-${index}`}
-          style={index % 2 === 0 ? leftChatStyle : rightChatStyle}
+          style={index % 2 === 1 ? leftChatStyle : rightChatStyle}
         >
           {chat}
         </div>
