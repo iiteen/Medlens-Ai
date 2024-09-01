@@ -82,7 +82,7 @@ This project is a chatbot designed to answer user queries by extracting and proc
 - Step 7 will start your Front-end for ChatBot
 - Step 8 will start Backend for ChatBot
 - Go to ChatBot Interface(front-end) 
-- Click on the upload pdf button and upload your pdf
+- Click on the upload pdf button and upload your pdf (which may take upto 10 secs)
 - Now enter your queries in the message field and click on send.
 - Wait for the ChatBot to answer your Query
 - Incase you doubt ChatBot isn't working, have a look on the conda terminal in which you ran Step 8.(Those logs may help you to know that it is still processing and would take time to answer the query.)
