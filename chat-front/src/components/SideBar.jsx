@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 
-const SideBar = ({ chats }) => {
+const SideBar = ({ chats ,sidebarChats}) => {
 
-  useEffect(() => {
-
-  }, [chats]);
+ 
 
   const sidebarStyle = {
     height: '100vh',
@@ -50,7 +48,7 @@ const SideBar = ({ chats }) => {
       <h2 style={headingStyle}>ChatAI</h2> 
       <h2 style={headingStyle1}>YOUR CHATS</h2> 
       <ul style={listStyle}>
-        {chats.map((chat, index) => (
+        {sidebarChats.map((chat, index) => (
           <li
             key={index}
             style={listItemStyle}

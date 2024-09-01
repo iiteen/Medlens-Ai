@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-const TextBox = ({ chats, setChats }) => {
+
+const TextBox = ({ chats, setChats,sidebarChats,setSidebarChats }) => {
   const [message, setMessage] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -48,25 +49,49 @@ const TextBox = ({ chats, setChats }) => {
     cursor: 'pointer',
     textAlign: 'center',
   };
+  const sendTextToBackend = async (text) => {
+    try {
+      console.log(text)
+      const response = await fetch(' http://127.0.0.1:5000/get-query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text }),
+      });
 
+      const result = await response.json();
+      console.log(result.message);
+     
+
+    } catch (error) {
+      console.error('Error sending text:', error);
+      alert('Error sending text');
+    }
+  };
   const handleSend = () => {
     setChats((prevChats) => [message, ...prevChats]);
-    setMessage('');
+    setSidebarChats((prevChats) => [message, ...prevChats]);
+    sendTextToBackend(message)
+   
+
+    setMessage("");
   };
 
   const handleNewChat = () => {
     // Your new chat logic here
   };
+  
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      const formData = new FormData(); // Correct capitalization
+      const formData = new FormData(); 
       formData.append('file', file);
 
       try {
-        const response = await fetch('http://localhost:5000/upload-file', {
+        const response = await fetch(' http://127.0.0.1:5000/upload-file', {
           method: 'POST',
           body: formData,
         });
