@@ -3,7 +3,18 @@ from langchain_ollama.llms import OllamaLLM
 
 
 def LLM(contexts, user_query, def_model="llama3.1"):
-    template = """
+
+    template = """Question: {question}
+
+    Answer: Let's think step by step."""
+
+    prompt = ChatPromptTemplate.from_template(template)
+
+    model = OllamaLLM(model=def_model)
+
+    chain = prompt | model
+    context = "\n".join([chunk.page_content for chunk in contexts])
+    input_text = f"""
     Objective:
     Generate a concise and accurate answer to the query based on the provided context.
 
@@ -27,13 +38,5 @@ def LLM(contexts, user_query, def_model="llama3.1"):
 
     Answer:
     """
-
-    prompt = ChatPromptTemplate.from_template(template)
-
-    model = OllamaLLM(model=def_model)
-
-    chain = prompt | model
-    context = "\n".join([chunk.page_content for chunk in contexts])
-
-    ans = chain.invoke({"context": context, "user_query": user_query})
+    ans = chain.invoke({"question": input_text})
     return ans

@@ -1,5 +1,6 @@
+from langchain.embeddings import HuggingFaceEmbeddings
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_core.documents import Document
 
 
 def traditional_chunking(text, chunk_size=500):
@@ -7,21 +8,23 @@ def traditional_chunking(text, chunk_size=500):
 
 
 def semantic_chunking(pdf_text):
+    """Create semantic chunks from extracted PDF text."""
+    # Initialize the HuggingFace embeddings
+    embedding_model = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
-    # Initialize the chunker
-    chunker = SemanticChunker(HuggingFaceEmbeddings())
+    # Initialize the SemanticChunker
+    semantic_chunker = SemanticChunker(
+        embedding_model, breakpoint_threshold_type="percentile"
+    )
 
-    # Example text (replace with your own long document)
-    text = """
-    Madam Speaker, Madam Vice President, our First Lady and Second Gentleman.
-    Members of Congress and the Cabinet. Justices of the Supreme Court.
-    My fellow Americans. Last year COVID-19 kept us apart. This year we are finally together again.
-    Tonight, we meet as Democrats, Republicans, and Independents. But most importantly, as Americans.
-    With a duty to one another, to the American people, and to the Constitution.
-    And with an unwavering resolve that freedom will always triumph over tyranny.
-    """
+    # Convert the single text into a list of Document objects for the chunking process
+    documents = [Document(page_content=pdf_text)]
 
-    # Perform semantic chunking
-    chunks = chunker.split_text(pdf_text)
+    # Apply the SemanticChunker to create semantic chunks
+    semantic_chunks = semantic_chunker.create_documents(
+        [d.page_content for d in documents]
+    )
 
-    return chunks
+    return semantic_chunks
