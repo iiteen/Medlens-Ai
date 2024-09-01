@@ -5,10 +5,29 @@ const MessageArea = ({ chats }) => {
 
   useEffect(() => {
     // Scroll to the bottom when chats are updated
-    if (messageEndRef.current) {
+    if (messageEndRef.current && chats.length > 4) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [chats]);
+
+  // Function to format text with *bold* or **bold** to HTML
+  const formatMessage = (text) => {
+    // Escape HTML characters to prevent XSS
+    const escapeHtml = (str) => str.replace(/[&<>"']/g, (match) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    })[match]);
+
+    // Format text with **bold** and *bold*
+    const formattedText = escapeHtml(text)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text surrounded by **
+      .replace(/\*(.*?)\*/g, '<strong>$1</strong>');   // Bold text surrounded by *
+
+    return formattedText;
+  };
 
   const messageAreaStyle = {
     flex: 1,
@@ -19,7 +38,6 @@ const MessageArea = ({ chats }) => {
     height: 'calc(100vh - 40px)',
     display: 'flex',
     flexDirection: 'column', // Reverse the order of items
-   
   };
 
   const messageStyle = {
@@ -55,9 +73,8 @@ const MessageArea = ({ chats }) => {
         <div
           key={`chat-${index}`}
           style={index % 2 === 1 ? leftChatStyle : rightChatStyle}
-        >
-          {chat}
-        </div>
+          dangerouslySetInnerHTML={{ __html: formatMessage(chat) }} // Render formatted HTML
+        />
       ))}
       {/* Invisible div to trigger scrolling */}
       <div ref={messageEndRef} />

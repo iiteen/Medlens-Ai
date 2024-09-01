@@ -45,7 +45,7 @@ const SideBar = ({ chats ,sidebarChats}) => {
 
   return (
     <div style={sidebarStyle}>
-      <h2 style={headingStyle}>ChatAI</h2> 
+      <h2 style={headingStyle}>WALL-E </h2> 
       <h2 style={headingStyle1}>YOUR CHATS</h2> 
       <ul style={listStyle}>
         {sidebarChats.map((chat, index) => (
