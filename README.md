@@ -94,7 +94,10 @@ This project is a chatbot designed to answer user queries by extracting and proc
 - Incase you doubt ChatBot isn't working, have a look on the conda terminal in which you ran Step 8.(Those logs may help you to know that it is still processing and would take time to answer the query.)
 - Note: To ask queries from another Pdf, you need to start a New Chat and upload the new PDF.
 
-**Checkout our PDF ChatBot here:** [ChatBot Video](https://drive.google.com/drive/folders/189L3K1Nf135LKG6WWiFrzrQWkux7UYnG?usp=sharing)
+## Checkout our PDF ChatBot Demo
+
+https://github.com/user-attachments/assets/4cdf41db-797e-439d-a626-04849dbe6226
+
 
 ## Connect with us:
 In case of any queries, feel free to contact us on:
