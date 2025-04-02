@@ -7,6 +7,8 @@
 - Kundan Kumar
 - Dhruv Goyal
 
+**Results:** [1st Runner up](https://www.instagram.com/p/DA8bTZGPkVU/?img_index=1)
+
 ## Overview
 
 This project is a chatbot designed to answer user queries by extracting and processing information from PDF documents. It uses OCR to convert PDF pages to text, then creates semantic chunks for efficient information retrieval. Finally, the chatbot uses a language model to generate precise answers based on the most relevant chunks of the document.
