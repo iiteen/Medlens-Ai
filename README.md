@@ -1,7 +1,5 @@
 # Medlens Ai : Smart Querying for Healthcare PDFs
 
-**Repository Link:** [https://github.com/iiteen/Health-Contracts](https://github.com/iiteen/Health-Contracts)
-
 **Team Name: Wall-E**
 
 **Members:**
